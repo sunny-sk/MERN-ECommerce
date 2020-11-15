@@ -5,6 +5,10 @@
   "[html]": {
     "editor.formatOnSave": true
   },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
   "editor.minimap.enabled": true,
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
