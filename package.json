@@ -2,13 +2,15 @@
   "name": "mern-ecommerce-brad",
   "version": "1.0.0",
   "description": "",
-  "main": ".prettierrc.js",
+  "main": "backend/server.js",
   "type": "module",
   "scripts": {
     "server": "nodemon backend/server --silent",
     "start": "node backend/server",
     "client": "npm start --prefix frontend --silent",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder.js",
+    "data:destroy": "node backend/seeder -d"
   },
   "author": "",
   "license": "ISC",
@@ -16,9 +18,14 @@
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "mongoose": "^5.10.14"
   },
   "devDependencies": {
     "concurrently": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunny-sk/MERN-ECommerce.git"
   }
 }
