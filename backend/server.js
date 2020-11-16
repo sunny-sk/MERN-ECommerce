@@ -1,7 +1,12 @@
-require('dotenv').config();
-const express = require('express');
+import dotenv from 'dotenv';
+import express from 'express';
+import colors from 'colors';
+import products from './data/products.js';
+import connectDB from './config/db.js';
+
 const app = express();
-const products = require('./data/products');
+dotenv.config();
+connectDB();
 
 app.get('/api/products/:id', (req, res) => {
   const product = products.find((p) => p._id == req.params.id);
@@ -15,9 +20,9 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-console.log(process.env.PORT);
 app.listen(PORT, () => {
   console.log(
-    `server started at port ${process.env.PORT} in ${process.env.NODE_ENV}`,
+    `server started at port ${process.env.PORT} in ${process.env.NODE_ENV}`
+      .yellow.bold,
   );
 });
