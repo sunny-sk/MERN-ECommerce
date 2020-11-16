@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, ListGroup, Card, Button, Image } from 'react-bootstrap';
-import { Rating } from '../components';
+import { Loader, Rating, Message } from '../components';
 //router
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-const ProductScreen = ({ match }) => {
-  const [product, setProduct] = useState({});
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { listProductDetails } from '../actions/productActions';
 
+const ProductScreen = ({ match }) => {
+  const dispatch = useDispatch();
+  const productDetail = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetail;
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const { data } = await axios.get(`/api/products/${match.params.id}`);
-        setProduct(data);
-      } catch (error) {}
-    };
-    fetchProduct();
+    dispatch(listProductDetails(match.params.id));
   }, [match]);
 
   return (
     <>
-      {product ? (
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
         <>
           <Link to="/" className="btn btn-light my-3">
             Go Back
@@ -82,7 +84,7 @@ const ProductScreen = ({ match }) => {
             </Col>
           </Row>
         </>
-      ) : null}
+      )}
     </>
   );
 };
