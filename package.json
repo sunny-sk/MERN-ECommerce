@@ -1,0 +1,21 @@
+{
+  "name": "mern-ecommerce-brad",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".prettierrc.js",
+  "scripts": {
+    "server": "nodemon backend/server --silent",
+    "start": "node backend/server",
+    "client": "npm start --prefix frontend --silent",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
