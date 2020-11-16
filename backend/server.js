@@ -9,11 +9,12 @@ connectDB();
 
 //routes
 import productRoutes from './routes/productRoutes.js';
-
-app.get('/api/products/', productRoutes);
+import { errorHandler } from './middleware/error.js';
+app.use('/api/products', productRoutes);
 app.get('/', (req, res) => {
-  res.send('server ');
+  res.send('server up');
 });
+app.use(errorHandler);
 
 //server
 const PORT = process.env.PORT || 5000;
