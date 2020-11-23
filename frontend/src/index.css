@@ -2,10 +2,45 @@ main {
   min-height: 80vh;
 }
 
-h3 {
-  padding: 1rem 0;
-}
-
 .rating span {
   margin: 0.1rem;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.box {
+  border: 1pc solid red;
+  height: 100px;
+  width: 100px;
+}
+
+h3 {
+  padding: 1rem 0 !important;
+}
+
+h1 {
+  font-size: 1.8rem !important;
+  padding: 1rem 0;
+}
+h2 {
+  font-size: 1.4rem !important;
+  padding: 0.5rem 0;
 }

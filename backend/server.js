@@ -2,11 +2,11 @@ import dotenv from 'dotenv';
 import express from 'express';
 import colors from 'colors';
 import connectDB from './config/db.js';
-
+import cors from 'cors';
 const app = express();
 dotenv.config();
 connectDB();
-
+app.use(cors());
 //routes
 import productRoutes from './routes/productRoutes.js';
 import { errorHandler } from './middleware/error.js';
