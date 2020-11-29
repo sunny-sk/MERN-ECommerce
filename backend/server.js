@@ -7,10 +7,13 @@ const app = express();
 dotenv.config();
 connectDB();
 app.use(cors());
+app.use(express.json());
 //routes
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import { errorHandler } from './middleware/error.js';
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 app.get('/', (req, res) => {
   res.send('server up');
 });
