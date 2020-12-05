@@ -16,5 +16,6 @@
   "window.zoomLevel": 0,
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.tabSize": 2,
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "eslint.enable": false
 }
