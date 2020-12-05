@@ -7,6 +7,7 @@ import {
   LoginScreen,
   RegisterScreen,
   ProfileScreen,
+  ShippingScreen,
 } from './screens';
 import { Container } from 'react-bootstrap';
 
@@ -20,6 +21,7 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Route exact path="/product/:id" component={ProductScreen} />
+          <Route exact path="/shipping" component={ShippingScreen} />
           <Route exact path="/profile" component={ProfileScreen} />
           <Route exact path="/login" component={LoginScreen} />
           <Route exact path="/register" component={RegisterScreen} />
