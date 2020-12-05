@@ -34,6 +34,7 @@ const addOrdersItems = asyncHandler(async (req, res) => {
       success: true,
       code: 201,
       message: 'order created',
+      order: createdOrder,
     });
   }
 });
