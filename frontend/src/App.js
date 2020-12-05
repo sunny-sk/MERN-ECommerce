@@ -7,6 +7,7 @@ import {
   LoginScreen,
   RegisterScreen,
   ProfileScreen,
+  PaymentScreen,
   ShippingScreen,
 } from './screens';
 import { Container } from 'react-bootstrap';
@@ -14,6 +15,7 @@ import { Container } from 'react-bootstrap';
 //router
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../src/App.css';
+
 const App = () => {
   return (
     <Router>
@@ -22,6 +24,7 @@ const App = () => {
         <Container>
           <Route exact path="/product/:id" component={ProductScreen} />
           <Route exact path="/shipping" component={ShippingScreen} />
+          <Route exact path="/payment" component={PaymentScreen} />
           <Route exact path="/profile" component={ProfileScreen} />
           <Route exact path="/login" component={LoginScreen} />
           <Route exact path="/register" component={RegisterScreen} />
