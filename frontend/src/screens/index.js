@@ -6,11 +6,13 @@ import RegisterScreen from './RegisterScreen';
 import ProfileScreen from './ProfileScreen';
 import ShippingScreen from './ShippingScreen';
 import PaymentScreen from './PaymentScreen';
+import PlaceOrderScreen from './PlaceOrderScreen';
 
 export {
   HomeScreen,
   ProductScreen,
   CartScreen,
+  PlaceOrderScreen,
   LoginScreen,
   RegisterScreen,
   ProfileScreen,
