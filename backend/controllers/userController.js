@@ -106,5 +106,85 @@ const updateUerProfile = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+//@desc   GET all users
+//@route  PUT /api/users
+//@access private - admin
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find();
 
-export { authUser, getUerProfile, registerUser, updateUerProfile };
+  res.status(200).json({
+    success: true,
+    count: users.length,
+    users,
+  });
+});
+
+//@desc   delete user profile
+//@route  DELETE /api/users/:id
+//@access private - admin
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  } else {
+    res.status(200).json({
+      success: true,
+      code: 200,
+      message: 'user deleted successfully',
+    });
+  }
+});
+
+//@desc   GET user by id
+//@route  GET /api/users/:id
+//@access private - admin
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  } else {
+    res.status(200).json({
+      success: true,
+      code: 200,
+      user,
+    });
+  }
+});
+
+//@desc   update user by id
+//@route  PUT /api/users/:id
+//@access private - admin
+const updateUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+    const updatedUser = await user.save();
+    res.status(200).json({
+      success: true,
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        isAdmin: updatedUser.isAdmin,
+      },
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+export {
+  authUser,
+  getUerProfile,
+  registerUser,
+  updateUerProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUserById,
+};

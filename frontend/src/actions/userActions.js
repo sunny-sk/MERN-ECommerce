@@ -15,6 +15,16 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_DETAILS_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
 } from '../constants/userConstants';
 
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
@@ -115,7 +125,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       `http://localhost:5000/api/users/${id}`,
       config,
     );
-    console.log(data);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -131,6 +140,49 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updateUser = (id, email, name, isAdmin) => async (
+  dispatch,
+  getState,
+) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+
+    const { token } = getState().userLogin.userInfo;
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
+    };
+
+    const { data } = await axios.put(
+      `http://localhost:5000/api/users/${id}`,
+      { email, name, isAdmin },
+      config,
+    );
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+    });
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -166,11 +218,73 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     });
   }
 };
+export const listUsers = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    const { token } = getState().userLogin.userInfo;
+
+    const config = {
+      headers: {
+        'x-auth-token': token,
+      },
+    };
+
+    const { data } = await axios.get(`http://localhost:5000/api/users`, config);
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const deleteUser = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DELETE_REQUEST,
+    });
+
+    const { token } = getState().userLogin.userInfo;
+
+    const config = {
+      headers: {
+        'x-auth-token': token,
+      },
+    };
+
+    await axios.delete(`http://localhost:5000/api/users/${id}`, config);
+
+    dispatch({
+      type: USER_DELETE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
 
   dispatch({
     type: USER_DETAILS_RESET,
+  });
+  dispatch({
+    type: USER_LIST_RESET,
   });
   dispatch({
     type: ORDER_LIST_MY_RESET,
