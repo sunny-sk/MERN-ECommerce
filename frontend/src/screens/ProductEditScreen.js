@@ -9,12 +9,8 @@ import { Link } from 'react-router-dom';
 import { Loader, Message } from '../components';
 import { listProductDetails, updateProduct } from '../actions/productActions';
 import FormContainer from '../components/FormContainer';
-import {
-  PRODUCT_UPDATE_RESET,
-  PRODUCT_DETAIL_RESET,
-} from '../constants/productConstants';
 
-const ProductEditScreen = ({ match, history }) => {
+const ProductEditScreen = ({ match }) => {
   let productId = match.params.id;
   const dispatch = useDispatch();
   const [price, setPrice] = useState(0);
@@ -29,11 +25,7 @@ const ProductEditScreen = ({ match, history }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
   const productUpdate = useSelector((state) => state.productUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = productUpdate;
+  const { loading: loadingUpdate, error: errorUpdate } = productUpdate;
 
   useEffect(() => {
     setName(product.name);
@@ -47,7 +39,7 @@ const ProductEditScreen = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(listProductDetails(productId));
-  }, [productId]);
+  }, [productId, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
