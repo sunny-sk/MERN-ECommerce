@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
+import axios from 'axios';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
@@ -22,6 +24,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -31,36 +34,6 @@ const ProductEditScreen = ({ match, history }) => {
     error: errorUpdate,
     success: successUpdate,
   } = productUpdate;
-
-  // useEffect(() => {
-  //   // if (successUpdate) {
-  //   //   dispatch({ type: PRODUCT_UPDATE_RESET });
-  //   //   history.push('/admin/productlist');
-  //   // } else {
-  //   //   if (!product) {
-  //   //     dispatch(listProductDetails(productId));
-  //   //   } else {
-  //   //     setName(product.name);
-  //   //     setPrice(product.price);
-  //   //     setImage(product.image);
-  //   //     setBrand(product.brand);
-  //   //     setCategory(product.category);
-  //   //     setCountInStock(product.countInStock);
-  //   //     setDescription(product.description);
-  //   //   }
-  //   // }
-  //   if (product && !product.name) {
-  //     dispatch(listProductDetails(productId));
-  //   } else {
-  //     setName(product.name);
-  //     setPrice(product.price);
-  //     setImage(product.image);
-  //     setBrand(product.brand);
-  //     setCategory(product.category);
-  //     setCountInStock(product.countInStock);
-  //     setDescription(product.description);
-  //   }
-  // }, [productId]);
 
   useEffect(() => {
     setName(product.name);
@@ -89,6 +62,30 @@ const ProductEditScreen = ({ match, history }) => {
         image,
       }),
     );
+  };
+
+  const uploadFileHandler = async (e) => {
+    try {
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append('image', file);
+      setUploading(true);
+      const config = {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      };
+      const { data } = await axios.post(
+        'http://localhost:5000/api/upload',
+        formData,
+        config,
+      );
+      setUploading(false);
+      setImage(data);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -133,6 +130,12 @@ const ProductEditScreen = ({ match, history }) => {
                   onChange={(e) => setImage(e.target.value)}
                   type="text"
                 />
+                <Form.File
+                  id="image-file"
+                  label="Choose File"
+                  custom
+                  onChange={uploadFileHandler}></Form.File>
+                {uploading && <Loader />}
               </Form.Group>
               <Form.Group controlId="brand">
                 <Form.Label>Brand</Form.Label>
