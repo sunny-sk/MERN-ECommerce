@@ -13,6 +13,7 @@ import {
   OrderScreen,
   userListScreen,
   UserEditScreen,
+  ProductListScreen,
 } from './screens';
 import { Container } from 'react-bootstrap';
 
@@ -37,6 +38,11 @@ const App = () => {
           <Route exact path="/" component={HomeScreen} />
           <Route exact path="/order/:id" component={OrderScreen} />
           <Route exact path="/admin/userlist" component={userListScreen} />
+          <Route
+            exact
+            path="/admin/productlist"
+            component={ProductListScreen}
+          />
           <Route exact path="/admin/user/:id/edit" component={UserEditScreen} />
         </Container>
       </main>
