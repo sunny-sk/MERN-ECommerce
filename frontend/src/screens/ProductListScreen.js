@@ -5,12 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { LinkContainer } from 'react-router-bootstrap';
 import { Loader, Message } from '../components';
-import { listProducts } from '../actions/productActions';
+import { listProducts, deleteProduct } from '../actions/productActions';
 
 const ProductListScreen = ({ history }) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -20,11 +26,11 @@ const ProductListScreen = ({ history }) => {
     } else {
       history.push('/login');
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo, successDelete]);
 
   const deleteHandler = (pId) => {
     if (window.confirm('are you sure ?')) {
-      // DELETE product
+      dispatch(deleteProduct(pId));
     }
   };
 
@@ -43,6 +49,8 @@ const ProductListScreen = ({ history }) => {
         </Col>
       </Row>
 
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant="danger"> {error}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
