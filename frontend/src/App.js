@@ -14,6 +14,7 @@ import {
   userListScreen,
   UserEditScreen,
   ProductListScreen,
+  ProductEditScreen,
 } from './screens';
 import { Container } from 'react-bootstrap';
 
@@ -42,6 +43,11 @@ const App = () => {
             exact
             path="/admin/productlist"
             component={ProductListScreen}
+          />
+          <Route
+            exact
+            path="/admin/product/:id/edit"
+            component={ProductEditScreen}
           />
           <Route exact path="/admin/user/:id/edit" component={UserEditScreen} />
         </Container>

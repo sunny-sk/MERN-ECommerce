@@ -11,10 +11,10 @@ import OrderScreen from './OrderScreen';
 import userListScreen from './UserListScreen';
 import UserEditScreen from './UserEditScreen';
 import ProductListScreen from './ProductListScreen';
+import ProductEditScreen from './ProductEditScreen';
 
 export {
   HomeScreen,
-  ProductScreen,
   CartScreen,
   PlaceOrderScreen,
   LoginScreen,
@@ -25,5 +25,7 @@ export {
   OrderScreen,
   userListScreen,
   UserEditScreen,
+  ProductScreen,
   ProductListScreen,
+  ProductEditScreen,
 };
