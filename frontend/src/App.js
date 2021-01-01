@@ -21,6 +21,7 @@ import { Container } from 'react-bootstrap';
 //router
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '../src/App.css';
+import OrderListScreen from './screens/OrderListScreen';
 
 const App = () => {
   return (
@@ -29,16 +30,18 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Route exact path="/product/:id" component={ProductScreen} />
+          <Route exact path="/cart/:id?" component={CartScreen} />
           <Route exact path="/shipping" component={ShippingScreen} />
           <Route exact path="/placeorder" component={PlaceOrderScreen} />
           <Route exact path="/payment" component={PaymentScreen} />
           <Route exact path="/profile" component={ProfileScreen} />
           <Route exact path="/login" component={LoginScreen} />
           <Route exact path="/register" component={RegisterScreen} />
-          <Route exact path="/cart/:id?" component={CartScreen} />
           <Route exact path="/" component={HomeScreen} />
-          <Route exact path="/order/:id" component={OrderScreen} />
+          <Route exact path="/admin/orderlist" component={OrderListScreen} />
           <Route exact path="/admin/userlist" component={userListScreen} />
+          <Route exact path="/order/:id" component={OrderScreen} />
+          <Route exact path="/admin/order/:id" component={OrderScreen} />
           <Route
             exact
             path="/admin/productlist"

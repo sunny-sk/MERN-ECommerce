@@ -63,8 +63,8 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 //@desc   Update order to paid
-//@route  GET /api/orders/:id/pay
-//@access private
+//@route  PUT /api/orders/:id/pay
+//@access private - admin
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
   if (order) {
@@ -78,7 +78,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     };
 
     const updatedOrder = await order.save();
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       code: 200,
       updatedOrder,
@@ -92,6 +92,30 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc   Update order to delivered
+//@route  PUT /api/orders/:id/deliver
+//@access private - admin
+const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.status(200).json({
+      success: true,
+      code: 200,
+      message: 'updated order successfully',
+      updatedOrder,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      code: 404,
+      message: 'order not found with this id',
+    });
+  }
+});
 //@desc   GET loggedin user order
 //@route  GET /api/orders/myorders
 //@access private
@@ -104,5 +128,24 @@ const getMyOrders = asyncHandler(async (req, res) => {
     orders,
   });
 });
+//@desc   GET get All orders
+//@route  GET /api/orders
+//@access private - admin
+const getOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find().populate('user', 'id name');
 
-export { addOrdersItems, getOrderById, updateOrderToPaid, getMyOrders };
+  res.status(200).json({
+    success: false,
+    code: 200,
+    orders,
+  });
+});
+
+export {
+  addOrdersItems,
+  getOrderById,
+  updateOrderToPaid,
+  getMyOrders,
+  getOrders,
+  updateOrderToDelivered,
+};
