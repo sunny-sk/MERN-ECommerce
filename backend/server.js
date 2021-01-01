@@ -4,6 +4,7 @@ import colors from 'colors';
 import connectDB from './config/db.js';
 import cors from 'cors';
 import path from 'path';
+import morgan from 'morgan';
 const app = express();
 dotenv.config();
 connectDB();
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use(morgan('dev'));
 //routes
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
