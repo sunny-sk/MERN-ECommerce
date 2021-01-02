@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 // Link and LinkContainer working same
 //Link container is just use for wrapping bootstrap elements
-
+import SearchBox from './SearchBox';
+import { Route } from 'react-router-dom';
 const Header = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
@@ -22,6 +23,11 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            <Route
+              render={({ history }) => {
+                return <SearchBox history={history} />;
+              }}
+            />
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
