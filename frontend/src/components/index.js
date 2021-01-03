@@ -6,9 +6,11 @@ import Message from './Message';
 import Loader from './Loader';
 import CheckoutsSteps from './CheckoutsSteps';
 import Meta from './Meta';
+import ProductCarousel from './ProductCarousel';
 
 export {
   Meta,
+  ProductCarousel,
   Header,
   Footer,
   CheckoutsSteps,
