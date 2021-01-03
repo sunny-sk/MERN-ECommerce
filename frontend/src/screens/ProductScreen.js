@@ -8,7 +8,7 @@ import {
   Form,
   Image,
 } from 'react-bootstrap';
-import { Loader, Rating, Message } from '../components';
+import { Loader, Rating, Message, Meta } from '../components';
 //router
 import { Link } from 'react-router-dom';
 //redux
@@ -61,6 +61,7 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          <Meta title={product.name} />
           <Link to="/" className="btn btn-light my-3">
             Go Back
           </Link>

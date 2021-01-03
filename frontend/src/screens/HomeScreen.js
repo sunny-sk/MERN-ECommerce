@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+
 import { Row, Col } from 'react-bootstrap';
-import { Loader, Product, Message } from '../components';
+import { Loader, Product, Message, Meta } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
 
@@ -15,6 +16,10 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      <Meta
+        title="Welcome to prop shop | Home"
+        description="we sell at cheap price"
+      />
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />

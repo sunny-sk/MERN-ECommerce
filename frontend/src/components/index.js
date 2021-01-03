@@ -5,5 +5,15 @@ import Rating from './Rating';
 import Message from './Message';
 import Loader from './Loader';
 import CheckoutsSteps from './CheckoutsSteps';
+import Meta from './Meta';
 
-export { Header, Footer, CheckoutsSteps, Product, Rating, Loader, Message };
+export {
+  Meta,
+  Header,
+  Footer,
+  CheckoutsSteps,
+  Product,
+  Rating,
+  Loader,
+  Message,
+};
