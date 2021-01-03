@@ -7,8 +7,10 @@ import Loader from './Loader';
 import CheckoutsSteps from './CheckoutsSteps';
 import Meta from './Meta';
 import ProductCarousel from './ProductCarousel';
+import Paginate from './Paginate';
 
 export {
+  Paginate,
   Meta,
   ProductCarousel,
   Header,
